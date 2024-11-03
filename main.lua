@@ -38,7 +38,8 @@ function depth_first_search(start)
 end
 
 
--- TEST 
+-- TEST 1
+print('TEST depth_first_search()')
 -- Create nodes with names
 nodeA = Node('A')
 nodeB = Node('B')
@@ -57,3 +58,28 @@ table.insert(nodeC.lst_neighbours, nodeF)
 
 
 depth_first_search(nodeA)
+
+-- recursive version, we use the stack of the system rather than a custom stack
+function rec_depth_first_search(start)
+    start.visited = true
+    print(start.name)
+    
+    for idx, neighbour in ipairs(start.lst_neighbours) do
+        if neighbour.visited == false then
+            rec_depth_first_search(neighbour)
+        end
+    end
+end
+
+
+-- TEST 2
+print('TEST recursive version of depth_first_search()')
+-- Set all nodes to unvisited
+nodeA.visited = false
+nodeB.visited = false
+nodeC.visited = false
+nodeD.visited = false
+nodeE.visited = false
+nodeF.visited = false
+nodeG.visited = false
+rec_depth_first_search(nodeA)
